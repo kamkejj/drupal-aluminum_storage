@@ -1,0 +1,18 @@
+aluminum.admin:
+  title: 'Aluminum Storage'
+  description: 'Manage Aluminum Storage backend'
+  parent: aluminum.admin
+  route_name: aluminum_storage.admin
+  weight: 100
+aluminum.content:
+  title: 'Content settings'
+  description: 'Manage Aluminum Storage content settings'
+  parent: system.admin_content
+  route_name: aluminum_storage.content
+  weight: 100
+aluminum.appearance:
+  title: 'Appearance settings'
+  description: 'Manage Aluminum Storage appearance settings'
+  parent: system.themes_page
+  route_name: aluminum_storage.appearance
+  weight: 100

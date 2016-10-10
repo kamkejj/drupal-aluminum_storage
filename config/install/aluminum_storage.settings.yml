@@ -1,0 +1,9 @@
+aluminum_storage:
+  admin: {}
+  content:
+    contact_info:
+      company_name: Company Name, LLC
+      primary_phone_number: phone_number
+  appearance:
+    icons:
+      base_icon_class: fa

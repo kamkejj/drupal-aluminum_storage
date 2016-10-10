@@ -1,0 +1,8 @@
+{
+  "name": "drupal/aluminum_storage",
+  "type": "drupal-module",
+  "description": "Provides variable storage and a configuration UI for Aluminum and third party modules.",
+  "homepage": "https://github.com/TopFloorTech/drupal-aluminum_storage",
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev"
+}

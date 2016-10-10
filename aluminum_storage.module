@@ -1,0 +1,198 @@
+<?php
+
+/**
+ * @file
+ * Provides some common configurable blocks for use in the Spacelift theme
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function aluminum_storage_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.aluminum_storage':
+      return check_markup(file_get_contents(dirname(__FILE__) . "/README.txt"));
+  }
+}
+
+function aluminum_storage_social_networks() {
+  $moduleHandler = \Drupal::moduleHandler();
+
+  $data = $moduleHandler->invokeAll('aluminum_storage_social_networks');
+  $moduleHandler->alter('aluminum_storage_social_networks', $data);
+
+  return $data;
+}
+
+function aluminum_storage_aluminum_storage_social_networks() {
+  return [
+    'facebook' => [
+      'name' => 'Facebook',
+      'className' => 'facebook',
+      'placeholder' => 'https://www.facebook.com/[YourName]'
+    ],
+    'twitter' => [
+      'name' => 'Twitter',
+      'className' => 'twitter',
+      'placeholder' => 'https://twitter.com/[YourName]',
+    ],
+    'linkedin' => [
+      'name' => 'LinkedIn',
+      'className' => 'linkedin',
+      'placeholder' => 'https://www.linkedin.com/company/[YourName]',
+    ],
+    'youtube' => [
+      'name' => 'YouTube',
+      'className' => 'youtube',
+      'placeholder' => 'https://www.youtube.com/user/[YourName]',
+    ],
+    'google_plus' => [
+      'name' => 'Google+',
+      'className' => 'google-plus',
+      'placeholder' => 'https://plus.google.com/[YourName]',
+    ],
+  ];
+}
+
+function aluminum_storage_phone_numbers() {
+  $moduleHandler = \Drupal::moduleHandler();
+
+  $data = $moduleHandler->invokeAll('aluminum_storage_phone_numbers');
+  $moduleHandler->alter('aluminum_storage_phone_numbers', $data);
+
+  return $data;
+}
+
+function aluminum_storage_aluminum_storage_phone_numbers() {
+  return [
+    'phone_number_toll_free' => [
+      'title' => t('Toll-free phone number'),
+      'short_title' => 'TF',
+      'description' => t('If available, set the primary toll-free phone number which will have priority.'),
+    ],
+    'phone_number' => [
+      'title' => t('Phone number'),
+      'short_title' => 'PH',
+      'description' => t('Set the main standard (non-toll-free) phone number.'),
+    ],
+    'fax_number' => [
+      'title' => t('Fax number'),
+      'short_title' => 'F',
+      'description' => t('If available, set the fax number.'),
+    ],
+  ];
+}
+
+function aluminum_storage_aluminum_storage_groups() {
+  $groups = [];
+
+  $groups['admin.general'] = [
+    'name' => 'General',
+    'weight' => -50,
+  ];
+
+  $groups['appearance.general'] = [
+    'name' => 'General',
+    'weight' => -50,
+  ];
+
+  $groups['appearance.classes'] = [
+    'name' => 'Classes',
+    'weight' => -45,
+  ];
+
+  $groups['appearance.icons'] = [
+    'name' => 'Icons',
+    'weight' => -45,
+  ];
+
+  $groups['content.general'] = [
+    'name' => 'General',
+    'weight' => -50,
+  ];
+
+  $groups['content.contact_info'] = [
+    'name' => 'Contact info',
+    'weight' => -45,
+  ];
+
+  $groups['content.social'] = [
+    'name' => "Social",
+    'weight' => 25,
+  ];
+
+  return $groups;
+}
+
+function aluminum_storage_phone_number_select_options() {
+  $phoneNumbers = aluminum_storage_phone_numbers();
+
+  $options = [];
+
+  foreach ($phoneNumbers as $id => $info) {
+    $options[$id] = $info['title'];
+  }
+
+  return $options;
+}
+
+function aluminum_storage_aluminum_storage_items() {
+  $items = [];
+
+  $items['base_icon_class'] = [
+    'class' => 'HtmlClass',
+    'name' => 'Base icon class',
+    'description' => 'This class string will be prepended to any other icon classes that are output.',
+    'groupId' => 'appearance.icons',
+    'defaultValue' => 'fa',
+  ];
+
+  $items['company_name'] = [
+    'name' => 'Company name',
+    'description' => 'Enter the name of the company this website represents.',
+    'groupId' => 'content.contact_info',
+    'defaultValue' => 'Company Name, LLC',
+  ];
+
+  $items['primary_phone_number'] = [
+    'class' => 'Select',
+    'options' => aluminum_storage_phone_number_select_options(),
+    'name' => 'Primary phone number',
+    'description' => 'Select the main phone number for the site.',
+    'groupId' => 'content.contact_info',
+    'defaultValue' => 'phone_number',
+  ];
+
+  foreach (aluminum_storage_phone_numbers() as $id => $info) {
+    $items[$id] = [
+      'class' => 'PhoneNumber',
+      'name' => $info['title'],
+      'description' => $info['description'],
+      'groupId' => 'content.contact_info',
+    ];
+  }
+
+  foreach (aluminum_storage_social_networks() as $id => $info) {
+    $items[$id . '_icon_class'] = [
+      'class' => 'HtmlClass',
+      'name' => $info['name'],
+      'description' => 'The icon class used to reference ' . $info['name'] . ' on this site.',
+      'groupId' => 'appearance.icons',
+      'defaultValue' => 'fa-' . $info['class'],
+    ];
+
+    $items[$id . '_page_url'] = [
+      'class' => 'Url',
+      'name' => $info['name'] . ' page URL',
+      'description' => "The URL used to link to this site's " . $info['name'] . " page.",
+      'groupId' => 'content.social',
+      'fieldArray' => [
+        '#placeholder' => $info['placeholder'],
+      ]
+    ];
+  }
+
+  return $items;
+}

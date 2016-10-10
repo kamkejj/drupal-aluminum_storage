@@ -1,0 +1,12 @@
+administer aluminum storage:
+  title: 'Administer Aluminum Storage'
+  description: 'Configure backend settings for Aluminum Storage'
+  restrict access: TRUE
+administer aluminum storage content settings:
+  title: 'Administer Aluminum Storage content settings'
+  description: 'Configure content settings for Aluminum Storage'
+  restrict access: TRUE
+administer aluminum storage appearance settings:
+  title: 'Administer Aluminum Storage appearance settings'
+  description: 'Configure appearance settings for Aluminum storage'
+  restrict access: TRUE
