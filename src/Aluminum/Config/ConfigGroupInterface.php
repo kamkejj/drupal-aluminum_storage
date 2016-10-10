@@ -27,6 +27,13 @@ interface ConfigGroupInterface {
   public function getConfigId();
 
   /**
+   * Get the raw group ID (after any . separators)
+   *
+   * @return string
+   */
+  public function getConfigGroupId();
+
+  /**
    * Gets the human-readable name of this config group object, optionally
    * translated.
    *
@@ -64,6 +71,13 @@ interface ConfigGroupInterface {
    * @return bool TRUE if successful, FALSE otherwise
    */
   public function setConfigData($configData, $itemId = NULL);
+
+  /**
+   * Checks if this group contains any active config items.
+   *
+   * @return boolean TRUE if there are active config items, FALSE otherwise
+   */
+  public function hasConfigItems();
 
   /**
    * Get all config items in this group

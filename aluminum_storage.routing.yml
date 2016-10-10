@@ -1,21 +1,21 @@
 aluminum_storage.admin:
   path: '/admin/config/development/aluminum/storage'
   defaults:
-    _form: '\Drupal\aluminum_storage\Controller\AluminumStorageAdminSettingsForm'
+    _form: '\Drupal\aluminum_storage\Form\AluminumStorageAdminSettingsForm'
     _title: 'Aluminum Storage'
   requirements:
     _permission: 'administer aluminum storage'
 aluminum_storage.content:
   path: '/admin/content/aluminum-settings'
   defaults:
-    _form: '\Drupal\aluminum_storage\Controller\AluminumStorageContentSettingsForm'
+    _form: '\Drupal\aluminum_storage\Form\AluminumStorageContentSettingsForm'
     _title: 'Aluminum content settings'
   requirements:
     _permission: 'administer aluminum storage content settings'
 aluminum_storage.appearance:
   path: '/admin/appearance/aluminum-settings'
   defaults:
-    _form: '\Drupal\aluminum_storage\Controller\AluminumStorageAppearanceSettingsForm'
+    _form: '\Drupal\aluminum_storage\Form\AluminumStorageAppearanceSettingsForm'
     _title: 'Aluminum appearance settings'
   requirements:
     _permission: 'administer aluminum storage appearance settings'

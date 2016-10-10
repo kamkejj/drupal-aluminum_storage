@@ -55,18 +55,18 @@ abstract class AluminumStorageSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $formState) {
-    $form[$this->getFormId()] = $this->aluminumStorageConfig()->getFormArray($formState);
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    $form[$this->getFormId()] = $this->aluminumStorageConfig()->getFormArray($form_state);
 
-    return parent::buildForm($form, $formState);
+    return parent::buildForm($form, $form_state);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $formState) {
-    $this->aluminumStorageConfig()->submitFormData($formState);
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $this->aluminumStorageConfig()->submitFormData($form_state);
 
-    parent::submitForm($form, $formState);
+    parent::submitForm($form, $form_state);
   }
 }

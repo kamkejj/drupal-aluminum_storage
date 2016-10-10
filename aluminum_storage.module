@@ -68,19 +68,19 @@ function aluminum_storage_phone_numbers() {
 function aluminum_storage_aluminum_storage_phone_numbers() {
   return [
     'phone_number_toll_free' => [
-      'title' => t('Toll-free phone number'),
+      'title' => 'Toll-free phone number',
       'short_title' => 'TF',
-      'description' => t('If available, set the primary toll-free phone number which will have priority.'),
+      'description' => 'If available, set the primary toll-free phone number which will have priority.',
     ],
     'phone_number' => [
       'title' => t('Phone number'),
       'short_title' => 'PH',
-      'description' => t('Set the main standard (non-toll-free) phone number.'),
+      'description' => 'Set the main standard (non-toll-free) phone number.',
     ],
     'fax_number' => [
       'title' => t('Fax number'),
       'short_title' => 'F',
-      'description' => t('If available, set the fax number.'),
+      'description' => 'If available, set the fax number.',
     ],
   ];
 }
@@ -127,11 +127,9 @@ function aluminum_storage_aluminum_storage_groups() {
 }
 
 function aluminum_storage_phone_number_select_options() {
-  $phoneNumbers = aluminum_storage_phone_numbers();
-
   $options = [];
 
-  foreach ($phoneNumbers as $id => $info) {
+  foreach (aluminum_storage_phone_numbers() as $id => $info) {
     $options[$id] = $info['title'];
   }
 
@@ -180,7 +178,7 @@ function aluminum_storage_aluminum_storage_items() {
       'name' => $info['name'],
       'description' => 'The icon class used to reference ' . $info['name'] . ' on this site.',
       'groupId' => 'appearance.icons',
-      'defaultValue' => 'fa-' . $info['class'],
+      'defaultValue' => 'fa-' . $info['className'],
     ];
 
     $items[$id . '_page_url'] = [

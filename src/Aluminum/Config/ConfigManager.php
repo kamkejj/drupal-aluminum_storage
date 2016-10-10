@@ -31,7 +31,7 @@ class ConfigManager {
     'name' => NULL,
     'description' => NULL,
     'defaultValue' => NULL,
-    'class' => 'DefaultConfigItem',
+    'class' => 'Default',
     'weight' => 0,
     'groupId' => '',
     'fieldArray' => []
@@ -70,7 +70,7 @@ class ConfigManager {
 
   public static function loadConfigData() {
     if (!isset(self::$config)) {
-      $config = \Drupal::config('aluminum_storage.settings');
+      $config = \Drupal::configFactory()->getEditable('aluminum_storage.settings');
 
       self::$config = $config->get('aluminum_storage');
     }
@@ -79,7 +79,7 @@ class ConfigManager {
   }
 
   public static function saveConfigData($configData, $configId = NULL) {
-    $config = \Drupal::config('aluminum_storage.settings');
+    $config = \Drupal::configFactory()->getEditable('aluminum_storage.settings');
 
     if (!is_null($configId)) {
       $newConfigData = $configData;

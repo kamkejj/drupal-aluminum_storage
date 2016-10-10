@@ -10,7 +10,7 @@ namespace Drupal\aluminum_storage\Aluminum\Config\Item;
 
 
 use Drupal\aluminum_storage\Aluminum\Config\ConfigGroupInterface;
-use Drupal\Core\Form\FormState;
+use Drupal\Core\Form\FormStateInterface;
 
 class SelectConfigItem extends DefaultConfigItem {
   protected $options = [];
@@ -22,16 +22,16 @@ class SelectConfigItem extends DefaultConfigItem {
   public function __construct($id, ConfigGroupInterface $group, $itemConfig = []) {
     parent::__construct($id, $group, $itemConfig);
 
-    $itemConfig += [
-      'options' => [],
-    ];
+    $itemConfig += ['options' => []];
 
     $this->options += $itemConfig['options'];
   }
 
-  protected function buildFieldArray(FormState $formState = NULL) {
+  protected function buildFieldArray(FormStateInterface $formState = NULL) {
     $fieldArray = parent::buildFieldArray($formState);
 
     $fieldArray['#options'] = $this->options;
+
+    return $fieldArray;
   }
 }

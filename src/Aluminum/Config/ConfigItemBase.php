@@ -141,13 +141,15 @@ abstract class ConfigItemBase implements ConfigItemInterface {
     if ($save) {
       $this->getConfig()->save();
     }
+
+    return TRUE;
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitFormData(FormStateInterface $formState, $save = TRUE) {
-    $this->setValue($this->getFormValue($formState), $save);
+    return $this->setValue($this->getFormValue($formState), $save);
   }
 
   /**

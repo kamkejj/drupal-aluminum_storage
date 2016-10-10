@@ -122,7 +122,9 @@ class Config implements ConfigInterface {
     ];
 
     foreach ($this->getConfigGroups() as $groupId => $group) {
-      $formArray[$this->getFormId()][$groupId] = $group->getFormArray($formState);
+      if ($group->hasConfigItems()) {
+        $formArray[$this->getFormId()][$group->getConfigGroupId()] = $group->getFormArray($formState);
+      }
     }
 
     return $formArray;

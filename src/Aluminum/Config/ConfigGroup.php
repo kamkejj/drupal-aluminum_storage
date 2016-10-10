@@ -11,7 +11,6 @@ namespace Drupal\aluminum_storage\Aluminum\Config;
 
 use Drupal\aluminum\Aluminum\Traits\IdentifiableTrait;
 use Drupal\aluminum_storage\Aluminum\Exception\ConfigException;
-use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
 use ReflectionClass;
 
@@ -30,9 +29,6 @@ class ConfigGroup implements ConfigGroupInterface {
   protected $configItems;
 
   public function __construct($id, ConfigInterface $config, $name = null, $weight = 0) {
-    $idParts = explode('.', $id);
-    $id = array_pop($idParts);
-
     $this->id = $id;
     $this->config = $config;
     $this->name = $name;
@@ -52,6 +48,7 @@ class ConfigGroup implements ConfigGroupInterface {
         $namespace = '\\Drupal\\aluminum_storage\\Aluminum\\Config\\Item\\';
         $class = $namespace . $class . 'ConfigItem';
       }
+      unset($itemConfig['class']);
 
       if (!class_exists($class)) {
         throw new ConfigException(sprintf("Specified class %s not found", $class));
@@ -62,10 +59,7 @@ class ConfigGroup implements ConfigGroupInterface {
       $items[$itemId] = $r->newInstanceArgs([
         $itemId,
         $this,
-        $itemConfig['name'],
-        $itemConfig['description'],
-        $itemConfig['defaultValue'],
-        $itemConfig['fieldArray']
+        $itemConfig
       ]);
     }
 
@@ -82,6 +76,15 @@ class ConfigGroup implements ConfigGroupInterface {
   /**
    * {@inheritdoc}
    */
+  public function getConfigGroupId() {
+    $parts = explode('.', $this->getId());
+
+    return array_pop($parts);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getConfig() {
     return $this->config;
   }
@@ -92,11 +95,11 @@ class ConfigGroup implements ConfigGroupInterface {
   public function getConfigData() {
     $configData = $this->getConfig()->getConfigData();
 
-    if (!isset($configData[$this->getId()])) {
+    if (!isset($configData[$this->getConfigGroupId()])) {
       return [];
     }
 
-    return $configData[$this->getId()];
+    return $configData[$this->getConfigGroupId()];
   }
 
   /**
@@ -107,7 +110,7 @@ class ConfigGroup implements ConfigGroupInterface {
       $configData = [$itemId => $configData] + $this->getConfigData();
     }
 
-    return $this->getConfig()->setConfigData($configData, $this->getId());
+    return $this->getConfig()->setConfigData($configData, $this->getConfigGroupId());
   }
 
   /**
@@ -115,6 +118,15 @@ class ConfigGroup implements ConfigGroupInterface {
    */
   public function getWeight() {
     return $this->weight;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function hasConfigItems() {
+    $configItems = $this->getConfigItems();
+
+    return (!empty($configItems));
   }
 
   /**
