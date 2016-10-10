@@ -17,6 +17,14 @@ function aluminum_storage_help($route_name, RouteMatchInterface $route_match) {
   }
 }
 
+function aluminum_storage_aluminum_storage_config_types() {
+  return [
+    'admin' => 'Admin',
+    'content' => 'Content',
+    'appearance' => 'Appearance',
+  ];
+}
+
 function aluminum_storage_social_networks() {
   $moduleHandler = \Drupal::moduleHandler();
 

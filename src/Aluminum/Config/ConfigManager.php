@@ -14,12 +14,6 @@ use Drupal\aluminum_storage\Aluminum\Exception\ConfigException;
 class ConfigManager {
   use StaticInvokableTrait;
 
-  protected static $types = [
-    'admin',
-    'content',
-    'appearance',
-  ];
-
   protected static $groupDefaults = [
     'name' => NULL,
     'description' => NULL,
@@ -39,6 +33,12 @@ class ConfigManager {
 
   protected static $config;
 
+  static function getConfigTypes() {
+    $configTypes = self::invokeHook('aluminum_storage_config_types');
+
+    return $configTypes;
+  }
+
   /**
    * Gets an entire config type
    *
@@ -50,7 +50,7 @@ class ConfigManager {
    * @throws ConfigException
    */
   static function getConfig($configId) {
-    if (!in_array($configId, self::$types)) {
+    if (!array_key_exists($configId, self::getConfigTypes())) {
       $err = sprintf("config type (%s) is not valid", $configId);
 
       throw new ConfigException($err);
