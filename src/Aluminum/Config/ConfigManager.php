@@ -56,16 +56,9 @@ class ConfigManager {
       throw new ConfigException($err);
     }
 
-    $configGroups = self::loadConfigGroups();
-    $groups = [];
+    $configTypes = self::getConfigTypes();
 
-    foreach ($configGroups as $groupId => $groupConfig) {
-      if ($groupConfig['configId'] == $configId) {
-
-      }
-    }
-
-    return new Config($configId, NULL, $groups);
+    return new Config($configId, $configTypes[$configId]);
   }
 
   public static function loadConfigData() {
