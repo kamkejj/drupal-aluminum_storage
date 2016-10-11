@@ -118,6 +118,23 @@ abstract class ConfigItemBase implements ConfigItemInterface {
   /**
    * {@inheritdoc}
    */
+  public function hasValue(FormStateInterface $formState = NULL) {
+    if (!is_null($formState) && $this->formValueExists($formState)) {
+      return TRUE;
+    }
+
+    $configData = $this->getConfigData();
+
+    if (!is_null($configData)) {
+      return TRUE;
+    }
+
+    return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getValue(FormStateInterface $formState = NULL) {
     if (!is_null($formState) && $this->formValueExists($formState)) {
       return $this->getFormValue($formState);

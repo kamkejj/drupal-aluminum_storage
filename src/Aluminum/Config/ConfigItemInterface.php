@@ -105,6 +105,14 @@ interface ConfigItemInterface {
   public function getDefaultValue();
 
   /**
+   * Returns a boolean indicating whether this value is set in the config.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface|NULL $formState
+   * @return bool TRUE if the value is set, FALSE otherwise.
+   */
+  public function hasValue(FormStateInterface $formState = NULL);
+
+  /**
    * Gets the current value of this configuration field, falling back to
    * returning the default if not set. Uses any value set in $formState first.
    *
