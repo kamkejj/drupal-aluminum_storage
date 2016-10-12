@@ -81,12 +81,12 @@ function aluminum_storage_aluminum_storage_phone_numbers() {
       'description' => 'If available, set the primary toll-free phone number which will have priority.',
     ],
     'phone_number' => [
-      'title' => t('Phone number'),
+      'title' => 'Phone number',
       'short_title' => 'PH',
       'description' => 'Set the main standard (non-toll-free) phone number.',
     ],
     'fax_number' => [
-      'title' => t('Fax number'),
+      'title' => 'Fax number',
       'short_title' => 'F',
       'description' => 'If available, set the fax number.',
     ],

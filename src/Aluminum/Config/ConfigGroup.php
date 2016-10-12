@@ -37,7 +37,7 @@ class ConfigGroup implements ConfigGroupInterface {
   }
 
   protected function loadConfigItems() {
-    $configItems = ConfigManager::loadConfigItems($this->getId());
+    $configItems = ConfigManager::loadConfigItems($this->getId(), $this->getConfig()->getId());
 
     $items = [];
 

@@ -98,7 +98,11 @@ class ConfigManager {
     }, ARRAY_FILTER_USE_KEY);
   }
 
-  public static function loadConfigItems($groupId = NULL) {
+  public static function loadConfigItems($groupId = NULL, $configId = NULL) {
+    if (strpos($groupId, '.') === FALSE && $configId !== NULL) {
+      $groupId = $configId . '.' . $groupId;
+    }
+
     $items = self::invokeHook('aluminum_storage_items', self::$itemDefaults);
 
     if (is_null($groupId)) {
