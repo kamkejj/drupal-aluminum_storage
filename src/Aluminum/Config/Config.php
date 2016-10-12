@@ -47,6 +47,8 @@ class Config implements ConfigInterface {
     $groups = [];
 
     foreach ($configGroups as $groupId => $groupConfig) {
+      $groupId = $this->normalizeGroupId($groupId);
+
       $groups[$groupId] = new ConfigGroup(
         $groupId,
         $this,
@@ -62,6 +64,8 @@ class Config implements ConfigInterface {
    * {@inheritdoc}
    */
   public function getValue($itemId, $groupId = 'general', $default = NULL) {
+    $groupId = $this->normalizeGroupId($groupId);
+
     $group = $this->getConfigGroup($groupId);
 
     if (!is_a($group, 'ConfigGroupInterface')) {
@@ -96,6 +100,8 @@ class Config implements ConfigInterface {
    */
   public function setConfigData($configData, $groupId = NULL) {
     if (!is_null($groupId)) {
+      $groupId = $this->normalizeGroupId($groupId);
+
       $configData = [$groupId => $configData] + $this->getConfigData();
     }
 
@@ -106,6 +112,8 @@ class Config implements ConfigInterface {
    * {@inheritdoc}
    */
   public function getConfigGroup($groupId) {
+    $groupId = $this->normalizeGroupId($groupId);
+
     if (!isset($this->groups[$groupId])) {
       $err = sprintf("Config group %s not found.", $groupId);
 
@@ -115,10 +123,18 @@ class Config implements ConfigInterface {
     return $this->groups[$groupId];
   }
 
+  protected function normalizeGroupId($groupId) {
+    $parts = explode('.', $groupId);
+
+    return array_pop($parts);
+  }
+
   /**
    * {@inheritdoc}
    */
   public function setConfigGroup($groupId, ConfigGroupInterface $group) {
+    $groupId = $this->normalizeGroupId($groupId);
+
     $this->groups[$groupId] = $group;
   }
 
