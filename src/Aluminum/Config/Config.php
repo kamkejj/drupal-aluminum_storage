@@ -61,6 +61,25 @@ class Config implements ConfigInterface {
   /**
    * {@inheritdoc}
    */
+  public function getValue($itemId, $groupId = 'general', $default = NULL) {
+    $group = $this->getConfigGroup($groupId);
+
+    if (!is_a($group, 'ConfigGroupInterface')) {
+      return $default;
+    }
+
+    $item = $group->getConfigItem($itemId);
+
+    if (!is_a($item, 'ConfigItemInterface')) {
+      return $default;
+    }
+
+    return $item->getValue();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getConfigGroups() {
     return $this->groups;
   }
@@ -152,9 +171,7 @@ class Config implements ConfigInterface {
   }
 
   /**
-   * Saves current config data for this object to storage.
-   *
-   * @return bool TRUE on success, FALSE on failure
+   * {@inheritdoc}
    */
   public function save() {
     return ConfigManager::saveConfigData($this->configData, $this->getId());

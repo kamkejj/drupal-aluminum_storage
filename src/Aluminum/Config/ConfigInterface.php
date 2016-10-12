@@ -34,6 +34,17 @@ interface ConfigInterface {
   public function getName($translate = TRUE);
 
   /**
+   * A shortcut function to directly retrieve a value from a group in this
+   * config object.
+   *
+   * @param string $itemId The id of the configuration item to retrieve
+   * @param string $groupId The group to retrieve the configuration item from
+   * @param mixed $default The bare minimum to return if no config item is found
+   * @return mixed The value to retrieve, or the default value.
+   */
+  public function getValue($itemId, $groupId = 'general', $default = NULL);
+
+  /**
    * Returns all group objects for this config type keyed by group ID.
    *
    * @return ConfigGroupInterface[]
