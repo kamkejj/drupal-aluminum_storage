@@ -68,13 +68,13 @@ class Config implements ConfigInterface {
 
     $group = $this->getConfigGroup($groupId);
 
-    if (!is_a($group, 'ConfigGroupInterface')) {
+    if (!is_a($group, '\\Drupal\\aluminum_storage\\Aluminum\\Config\\ConfigGroupInterface')) {
       return $default;
     }
 
     $item = $group->getConfigItem($itemId);
 
-    if (!is_a($item, 'ConfigItemInterface')) {
+    if (!is_a($item, '\\Drupal\\aluminum_storage\\Aluminum\\Config\\ConfigItemInterface')) {
       return $default;
     }
 
