@@ -23,6 +23,8 @@ abstract class ConfigItemBase implements ConfigItemInterface {
   /** @var string An optional description to include in the field */
   protected $description = NULL;
 
+  protected $multiple = FALSE;
+
   /** @var ConfigGroupInterface */
   protected $group;
 
@@ -35,6 +37,7 @@ abstract class ConfigItemBase implements ConfigItemInterface {
       'name' => NULL,
       'description' => NULL,
       'defaultValue' => NULL,
+      'multiple' => FALSE,
       'fieldArray' => [],
     ];
 
@@ -48,6 +51,8 @@ abstract class ConfigItemBase implements ConfigItemInterface {
     if (!is_null($itemConfig['description'])) {
       $this->description = $itemConfig['description'];
     }
+
+    $this->multiple = $itemConfig['multiple'];
 
     $this->defaultValue = $itemConfig['defaultValue'];
     $this->fieldArray = $itemConfig['fieldArray'] + $this->fieldArray;
@@ -184,6 +189,7 @@ abstract class ConfigItemBase implements ConfigItemInterface {
     $defaults = [
       '#type' => 'textfield',
       '#title' => $this->getName(),
+      '#multiple' => $this->multiple,
       '#default_value' => $this->getValue($formState)
     ];
 
